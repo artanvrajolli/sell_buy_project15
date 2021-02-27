@@ -12,7 +12,7 @@ export class LoginController {
     }
    
     @Post('login')
-    loginPost(@Body() loginDTO : Login_dto) : string {
+    loginPost(@Body() loginDTO : Login_dto) : Promise<string> {
         return this.loginService.loginHandler(loginDTO.username ,loginDTO.password)
     }
 

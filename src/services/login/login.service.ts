@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import generateHash from '../../utils/generateHash'
-import { User, Users } from '../../models/User'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document } from 'mongoose';
 
@@ -8,10 +7,10 @@ let dd : any = console.log;
 
 @Injectable()
 export class LoginService {
-    constructor(@InjectModel('Users') private model: Model<Document>) {}
+    constructor(@InjectModel('User') private readonly userModel: Model<Document>) {}
 
-    loginHandler(username,password) : string{
-        const newUser = new this.model({
+    async loginHandler(username,password) : Promise<string>{
+        const newUser = new this.userModel({
             user:username,
             password:generateHash(password)
         })

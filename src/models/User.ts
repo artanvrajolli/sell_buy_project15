@@ -10,5 +10,3 @@ export const User = new mongoose.Schema({
         required: true
     }
 })
-
-export const Users = mongoose.model('User', User);

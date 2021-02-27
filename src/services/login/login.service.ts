@@ -10,11 +10,6 @@ export class LoginService {
     constructor(@InjectModel('User') private readonly userModel: Model<Document>) {}
 
     async loginHandler(username,password) : Promise<string>{
-        const newUser = new this.userModel({
-            user:username,
-            password:generateHash(password)
-        })
-        newUser.save()
         return `username: ${username}, password: ${generateHash(password)}`
     }
 }

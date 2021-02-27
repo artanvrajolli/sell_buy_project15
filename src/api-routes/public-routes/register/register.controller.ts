@@ -12,7 +12,7 @@ export class RegisterController {
     }
 
     @Post('register')
-    registerPost(@Body() registerDTO : RegisterDTO) : string {
+    registerPost(@Body() registerDTO : RegisterDTO) : Promise<string> {
         return this.registerService.registerHandler( registerDTO.username, registerDTO.password , registerDTO.cpassword) 
     }
 }

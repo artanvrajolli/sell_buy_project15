@@ -1,5 +1,5 @@
 import { Controller, Get, Body, Post } from '@nestjs/common';
-import { RegisterDTO } from './dto/register-dto'
+import { RegisterDTO } from './dto/registerUser.dto'
 import { RegisterService } from '../../../services/register/register.service'
 
 @Controller()

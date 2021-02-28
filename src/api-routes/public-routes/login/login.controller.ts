@@ -1,5 +1,6 @@
-import { Controller , Get , Post, Body } from '@nestjs/common';
-import { Login_dto } from './dto/login-user.dto'
+import { Controller , Get , Post, Body , Res, UseGuards } from '@nestjs/common';
+import { Response } from 'express'
+import { Login_dto } from './dto/loginUser.dto'
 import { LoginService } from '../../../services/login/login.service'
 
 @Controller()
@@ -12,8 +13,8 @@ export class LoginController {
     }
    
     @Post('login')
-    loginPost(@Body() loginDTO : Login_dto) : Promise<string> {
-        return this.loginService.loginHandler(loginDTO.username ,loginDTO.password)
+    loginPost(@Body() loginDTO : Login_dto, @Res({ passthrough: true }) response: Response) : Promise<string> {
+        return this.loginService.loginHandler(loginDTO.username ,loginDTO.password, response)
     }
 
 }

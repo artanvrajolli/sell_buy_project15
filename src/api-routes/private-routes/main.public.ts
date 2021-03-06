@@ -1,1 +1,1 @@
-export * from './user-profile/user-profile.controller'
+export * from './user-profile/user-profile.controller';

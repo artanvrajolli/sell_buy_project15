@@ -5,13 +5,15 @@ import { UserModel } from 'src/interfaces/user.interface';
 
 @Injectable()
 export class SettingsService {
-    constructor(@InjectModel('User') private readonly userModel : Model<UserModel>) {}
+  constructor(
+    @InjectModel('User') private readonly userModel: Model<UserModel>,
+  ) {}
 
-    changePassword(){
-        return ''
-    }
+  changePassword() {
+    return '';
+  }
 
-    changeCredentials(){
-        return ''
-    }
+  changeCredentials() {
+    return '';
+  }
 }

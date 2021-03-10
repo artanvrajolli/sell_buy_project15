@@ -1,3 +1,3 @@
 export class CredentialsDto {
-  readonly password: string;
+  readonly username: string;
 }

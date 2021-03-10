@@ -28,7 +28,7 @@ describe('LoginController', () => {
 
   it('GET /login expect return to be login', async () => {
     const result = 'login';
-    jest.spyOn(service, 'loginHandler').mockImplementation(async () => result);
+    //jest.spyOn(service, 'loginHandler').mockImplementation(async () => result);
     expect(await controller.login()).toBe(result);
   });
 });

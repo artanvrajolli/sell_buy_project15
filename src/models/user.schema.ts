@@ -13,4 +13,11 @@ export const User = new mongoose.Schema({
     type: String,
     default: 'user',
   },
+  isSeller: {
+    type:Boolean,
+    default: false
+  },
+  sellerID: {
+    type: mongoose.Types.ObjectId
+  }
 });

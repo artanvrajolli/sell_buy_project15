@@ -1,0 +1,586 @@
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!--================Header Menu Area =================-->
+	<header class="header_area">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<a class="navbar-brand logo_h" href="index.html">
+						<img src="./assets/style/img/logo.png" alt="">
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					 aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<div class="row w-100">
+							<div class="col-lg-8 pr-0 "></div>
+							<div class="col-lg-4 justify-content-end">
+								<ul class="nav navbar-nav navbar-right right_nav pull-right">
+									
+									<hr>
+									<li style="cursor: pointer;" class="nav-item">
+										<a id="profileIcon" (click)="profileHandler()" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="icons">
+											<i class="fa fa-user" aria-hidden="true"></i>
+										</a>
+									</li>
+									<hr>
+									<li (click)="addProductHandler(crowicon)" id="addPro" style="cursor: pointer;" data-toggle="modal" data-target="#addProductModal"  data-whatever="@mdo" class="nav-item" #crowicon>
+										<a class="icons" >
+											<i class="fas fa-crow" ></i>
+										</a>
+									</li>
+									<hr>
+									
+									<li (click)="inboxHandler(inboxbuttonshow)" style="cursor: pointer;" class="nav-item">
+										<a #inboxbuttonshow id="inboxbuttonshow" data-toggle="modal" data-target="#inboxModal" class="icons">
+											<i class="fa fa-inbox" aria-hidden="true"></i>
+										</a>
+									</li>
+									<hr>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<section style="min-height: 30px;"></section>
+
+	<!--================Category Product Area =================-->
+	<section class="cat_product_area section_gap">
+		<div class="container-fluid">
+			<div class="row flex-row-reverse">
+				<div class="col-lg-9" >
+					<div id="productGallery" class="latest_product_inner row">
+						<div *ngFor="let d of data.slice(0, maxOffset);" class="col-lg-3 col-md-3 col-sm-6">
+							<div style="cursor: pointer;" (click)="productModal(d.productId,d.name,d.description,d.price,d.stock,d.category,d.photoUrl,d.userId)" 
+							data-toggle="modal" data-target="#myModal" class="f_p_item">
+								<div class="f_p_img">
+									<img class="img-fluid" style="max-width: 100%;
+									height: 200px;
+									object-fit: scale-down;" src="http://localhost:3000{{d.photoUrl[0]}}" alt="">
+									</div>
+									<a>
+										<h4>{{ d.name }}</h4>
+									</a>
+									<h5>{{ d.price }}$</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="left_sidebar_area">
+						<aside class="left_widgets cat_widgets">
+							<div class="l_w_title">
+								<h3>Browse Categories</h3>
+							</div>
+							<div class="widgets_inner">
+								<ul class="list" *ngFor="let c of categories | slice:0:6;">
+									<li>
+										<a style="cursor: pointer;" (click)="getOnlyFromCategory(c)">{{ c }}</a>
+									</li>
+								</ul>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+  	<!-- Product Modal -->
+ 	 <div class="modal" id="myModal">
+    	<div class="modal-dialog modal-xl">
+      		<div class="modal-content">
+        		<!-- Modal Header -->
+        		<div class="modal-header">
+          			<h4 class="modal-title" id="productID">Name Product</h4>
+          			<button id="closeProductModal" type="button" class="close" data-dismiss="modal">&times;</button>
+        		</div>
+        <!-- Modal body -->
+        		<div class="modal-body">
+					<div class="product_image_area">
+						<div class="container">
+							<div class="row s_product_inner">
+								<div class="col-lg-6">
+									<div class="s_product_img">
+										<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+											<ol class="carousel-indicators"></ol>
+										<div class="carousel-inner"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-5 offset-lg-1">
+								<div class="s_product_text">
+									<!-- hidden product id-->
+									<a id="productIdfull" style="display:none"></a>
+									<a id="productUid" style="display:none" #userProductId></a>
+									<!-- -->
+									<h3 id="productName">Product Name</h3>
+									<h2 id="productPrice">$149.99</h2>
+									<ul class="list">
+										<li>
+											<a class="active">
+											<span>Category</span> : <span id="productCategory">Chair</span></a>
+										</li>
+										<li>
+											<a >
+												<span>Availibility</span> : <span id="productStock">4</span></a>
+										</li>
+									</ul>
+									<p id="productDes">Description</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+        		</div>
+        		<!-- Modal footer -->
+        		<div class="modal-footer">
+					<button id="deleteProduct" type="submit" (click)="deleteProduct()" class="btn btn-danger">Delete Product</button>
+					<button id="buttonShowModal" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#chatModal" data-whatever="@mdo" style="display: none;">Show chat</button>
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#chatmodal" data-whatever="@mdo" (click)="chat(userProductId.innerHTML)">Contact Owner</button>
+          			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        		</div>
+      		</div>
+    	</div>
+  	</div>
+				  <!-- end Product modal-->
+				  <!-- begin login modal-->
+				  
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Login</h5>
+							<button id="closeModalLogin" type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+							<div class="modal-body">
+								<div id="login">
+									<div class="form-group">
+									  <label for="usernameLabel">Username</label>
+									  <input name="username" type="text" class="form-control" id="usernameLabel" placeholder="Username" #username>
+									</div>
+									<div class="form-group">
+									  <label for="passwordLabel">Password</label>
+									  <input name="password" type="password" class="form-control" id="passwordLabel" placeholder="Password" #password>
+									</div>
+								</div>
+								  <p>Not a member yet? <a href="#" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo"> Sign up</a> for free</p>
+								  <p id="error" style="color: red"></p>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" (click)="loginHandler(username.value, password.value)" class="btn btn-primary">Login</button>
+							</div>
+						</div>
+						</div>
+					</div>
+				  <!-- end login modal-->
+				   <!-- begin register modal-->
+				  
+					<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Register</h5>
+							<button id="closeModalRegister" type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+							<div class="modal-body">
+								<div id="register">
+									<div class="form-group">
+										<label for="inlineFormInputGroup">Username</label>
+										<div class="input-group mb-2">
+											<div class="input-group-prepend">
+											  <div class="input-group-text">@</div>
+											</div>
+											<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" #usernameRegister>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="emailLabel">Email</label>
+										<input type="email" class="form-control" id="emailLabel" placeholder="Email" #emailRegister>
+									  </div>
+									<div class="form-group">
+										<label for="inputPassword6">Password</label>
+										<input placeholder="Password" type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" #passwordRegister>
+										<small id="passwordHelpInline" class="text-muted">
+										  Must be 8-20 characters long.
+										</small>
+									  </div>
+									</div>
+								<p id="errorRegister" style="color: red"></p>
+							</div>
+							<div class="modal-footer">
+								<button for="register" type="button" (click)="registerHandler(usernameRegister.value,emailRegister.value,passwordRegister.value)" class="btn btn-primary">Register</button>
+							</div>
+						</div>
+						</div>
+					</div>
+				  <!-- end register modal-->
+
+					<!-- begin profile modal-->
+					
+					<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Profile</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+							<div class="modal-body">
+									<div id="profile">
+										<div class="form-group">
+											<label for="inlineFormInputGroup">Username</label>
+											<div class="input-group mb-2">
+												<div class="input-group-prepend">
+												  <div class="input-group-text">@</div>
+												</div>
+												<input type="text" class="form-control" epi="username" id="inlineFormInputGroup" placeholder="Username" #usernameProfile>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="emailLabel">Email</label>
+											<input type="email" class="form-control" id="emailLabel" epi="email" placeholder="Email" #emailProfile>
+										  </div>
+										<div class="form-group">
+											<label for="inputPassword6">Password</label>
+											<input placeholder="Password" type="password" epi="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" #passwordProfile>
+											<small id="passwordHelpInline" class="text-muted">
+											  Must be 8-20 characters long.<br>
+											  	<span style="color:#F1C40F;">
+											  		Warning: Leave password blank to leave it unchanged!
+												</span>
+											</small>
+										</div>
+										
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" (click)="logoutHandler()" class="btn btn-danger">Logout</button>
+								<button type="button" (click)="profileUpdate(emailProfile.value,usernameProfile.value, passwordProfile.value)" class="btn btn-primary">Update</button>
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- end profile modal-->
+					<!-- begin addProduct modal-->
+					<div class="modal fade bd-example-modal-lg" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+									<div id="addProduct">
+										<div id="add">
+											<div class="form-row">
+											  <div class="form-group col-md-6">
+												<label for="inputEmail4">Name</label>
+												<input required type="text" class="form-control" id="inputEmail4" placeholder="Product Name" #productName>
+											  </div>
+											  <div class="form-group col-md-6">
+												<label for="inputPassword4">Price</label>
+												<input required type="number" class="form-control" id="inputPassword4" placeholder="Price" #productPrice>
+											  </div>
+											</div>
+											<div class="form-group">
+											  <label for="inputAddress">Description</label>
+											  <input required type="text" class="form-control" id="inputAddress" placeholder="Description" #productDescription>
+											</div>
+											<div class="form-row">
+											  <div class="form-group col-md-6">
+												<label for="inputCity">Stock</label>
+												<input required type="number" class="form-control" id="inputCity" placeholder="Stock" #productStock>
+											  </div>
+											  <div class="form-group col-md-4">
+												<label for="inputState">Category</label>
+												<select id="inputState" class="form-control" #productCategory>
+												  <option selected value="Grocery">Grocery</option>
+												  <option value="Tech">Tech</option>
+												  <option value="Entertainment">Entertainment</option>
+												  <option value="Outfit">Outfit</option>
+												  <option value="Accessories">Accessories</option>
+												  <option value="Toys">Toys</option>
+												  <option value="Furniture">Furniture</option>
+												</select>
+											  </div>
+											  <div class="form-group">
+												<label for="exampleFormControlFile1">Product Images</label>
+												<input required multiple type="file" class="form-control-file" id="exampleFormControlFile1" #productImages>
+											</div>
+											</div>
+										</div>
+										<p style="color:red;" id="addErrorProduct"></p>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" (click)="addProduct(productName.value,productDescription.value,productPrice.value,productStock.value,productCategory.value,productImages)" class="btn btn-primary">Add Product</button>
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- end addProduct modal-->
+					<style>
+						@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+						body {
+							background: #EEEEEE;
+							font-family: 'Roboto', sans-serif
+						}
+
+						.card {
+							width: 300px;
+							border: none;
+							border-radius: 15px
+						}
+
+						.adiv {
+							background: #04CB28;
+							border-radius: 15px;
+							border-bottom-right-radius: 0;
+							border-bottom-left-radius: 0;
+							
+						}
+
+						.chat {
+							border: none;
+							background: #E2FFE8;
+							
+							border-radius: 20px
+						}
+
+						.bg-white {
+							border: 1px solid #E7E7E9;
+						
+							border-radius: 20px
+						}
+
+						.myvideo img {
+							border-radius: 20px
+						}
+
+						.dot {
+							font-weight: bold
+						}
+
+						.form-control {
+							border-radius: 12px;
+							border: 1px solid #F0F0F0;
+						}
+
+						.form-control:focus {
+							box-shadow: none
+						}
+
+						.form-control::placeholder {
+							color: #c0a2a2
+						}
+
+						textarea {
+							resize: none;
+						}
+				</style>
+					<!-- Chat modal-->
+					<div class="modal fade bd-example-modal-lg" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div>
+									<div>
+										<div class="d-flex flex-row justify-content-between p-3 adiv text-white"> <span>Live chat</span> <span class="close" data-dismiss="modal" style="color:white;cursor: pointer;"><i  class="fas fa-times"></i></span> </div>
+										<div id="chatModalOutput" style="height: 50vh;
+										overflow: auto;">
+											
+										</div>
+										<div class="row"><div class="col-1"></div> <textarea #messageBox id="messageBox" style="padding-left: 30px;" class="form-control col-9" rows="1" placeholder="Type your message"></textarea> <div class="col-2" >
+											<button (click)="sendMessage(messageBox.value)" id="sendBox" class="btn btn-success"><i class="fas fa-paper-plane"></i></button>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- Chat modal-->
+
+					<!-- begin Inbox Modal -->
+					<div class="modal fade bd-example-modal-lg" id="inboxModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class=" modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="justify-content-around row">
+									<div class="col-4" id="inboxNameList" style="overflow: auto;height: 65vh;">
+										<div class="d-flex flex-row p-3 border mt-2"> 
+											<img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+											<div class="ml-2 mt-1">Nothing</div>
+										</div>
+									</div>
+									<div class="col-8">
+										<div class="d-flex flex-row justify-content-between p-3 adiv text-white">
+											<span id="currentChat">Username</span>
+										<span (click)="callHandler()" class="justify-content-end">
+											<span style="color:white;cursor: pointer;"><i class="fas fa-phone-alt mx-2"></i></span>
+										</span>
+										<span class="close" data-dismiss="modal" style="color:white;cursor: pointer;"><i  class="fas fa-times"></i></span> </div>
+										
+										<div id="inboxChatModalOutput" style="height: 50vh;
+										overflow: auto;">
+										</div>
+										<div class="row"><div class="col-1"></div> <textarea #inboxmessageBox id="inboxmessageBox" style="padding-left: 30px;" class="form-control col-9" rows="1" placeholder="Type your message"></textarea> <div class="col-2" >
+										<button (click)="inboxsendMessage(inboxmessageBox.value)" id="inboxsendBox" class="btn btn-success"><i class="fas fa-paper-plane"></i></button>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- end Inbox Modal-->
+
+				
+
+	<div class="row justify-content-center mt-4" id="loadMoreButton">
+		<div class="product_top_bar d-flex" >
+			<ul class="pagination" >
+				<li class="page-item active">
+					<a class="page-link" href="#" (click)="loadMore()">Load more </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	</section>
+	<!--================End Category Product Area =================-->
+
+
+	<!--================ start footer Area  =================-->
+	<footer class="footer-area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3  col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6 class="footer_title">About Us</h6>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6 class="footer_title">Newsletter</h6>
+						<p>Stay updated with our latest trends</p>
+						<div id="mc_embed_signup">
+							<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+							 method="get" class="subscribe_form relative">
+								<div class="input-group d-flex flex-row">
+									<input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
+									 required="" type="email">
+									<button class="btn sub-btn">
+										<span class="lnr lnr-arrow-right"></span>
+									</button>
+								</div>
+								<div class="mt-10 info"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-footer-widget instafeed">
+						<h6 class="footer_title">Instagram Feed</h6>
+						<ul class="list instafeed d-flex flex-wrap">
+							<li>
+								<img src="./assets/style/img/instagram/Image-01.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-02.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-03.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-04.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-05.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-06.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-07.jpg" alt="">
+							</li>
+							<li>
+								<img src="./assets/style/img/instagram/Image-08.jpg" alt="">
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6 col-sm-6">
+					<div class="single-footer-widget f_social_wd">
+						<h6 class="footer_title">Follow Us</h6>
+						<p>Let us be social</p>
+						<div class="f_social">
+							<a href="#">
+								<i class="fa fa-facebook"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-twitter"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-dribbble"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-behance"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row footer-bottom d-flex justify-content-between align-items-center">
+				<p class="col-lg-12 footer-text text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
+	<!-- Optional JavaScript -->
+	
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/stellar.js"></script>
+	<script src="vendors/lightbox/simpleLightbox.min.js"></script>
+	<script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="vendors/isotope/imagesloaded.pkgd.min.js"></script>
+	<script src="vendors/isotope/isotope-min.js"></script>
+	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/mail-script.js"></script>
+	<script src="vendors/jquery-ui/jquery-ui.js"></script>
+	<script src="vendors/counter-up/jquery.waypoints.min.js"></script>
+	<script src="vendors/counter-up/jquery.counterup.js"></script>
+	<script src="js/theme.js"></script>
